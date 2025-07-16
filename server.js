@@ -1,17 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-const path = require('path'); // <-- Add this line
 const app = express();
 
-// Middleware Setup
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 
-// --- NEW: Serve static files from the 'public' folder ---
-app.use(express.static(path.join(__dirname, 'public')));
-
-// API Route (This part is unchanged)
 app.get('/api/lookup/:username', async (req, res) => {
   try {
     const username = req.params.username;
@@ -67,8 +61,8 @@ app.get('/api/lookup/:username', async (req, res) => {
   }
 });
 
-// Server Startup
-const PORT = process.env.PORT || 3001;
+// UPDATED: Default port is now 8080 for Fly.io
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
